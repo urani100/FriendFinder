@@ -4,24 +4,16 @@
   <meta charset="UTF-8">
   <title>Survey</title>
 
-  <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-  <!-- Font Awesome Glyphicons -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
-  <!-- Chosen -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
-
 </head>
 
 <body>
-
   <div class="container">
-
     <h2>Survey Questions</h2>
     <hr>
 
@@ -31,11 +23,10 @@
 
     <h4>Link to Photo Image (Required)</h4>
     <input type="text" id="photo" class="form-control" required>
-
     <hr>
 
     <h3><strong>Question 1</strong></h3>
-    <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+    <h4>You love nature.</h4>
     <select class="chosen-select" id="q1">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -46,7 +37,7 @@
     </select>
 
     <h3><strong>Question 2</strong></h3>
-    <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+    <h4>You love dogs.</h4>
     <select class="chosen-select" id="q2">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -58,7 +49,7 @@
 
 
     <h3><strong>Question 3</strong></h3>
-    <h4>You find it easy to stay relaxed and focused even when there is some pressure.</h4>
+    <h4>You are spontaneous and you may decide to take a trip on a whim.</h4>
     <select class="chosen-select" id="q3">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -70,7 +61,7 @@
 
 
     <h3><strong>Question 4</strong></h3>
-    <h4>You rarely do something just out of sheer curiosity.</h4>
+    <h4>You enjoy reading, especially comic books.</h4>
     <select class="chosen-select" id="q4">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -82,7 +73,7 @@
 
 
     <h3><strong>Question 5</strong></h3>
-    <h4>People can rarely upset you.</h4>
+    <h4>You enjoy all sorts of music, including classical music.</h4>
     <select class="chosen-select" id="q5">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -94,7 +85,7 @@
 
 
     <h3><strong>Question 6</strong></h3>
-    <h4>It is often difficult for you to relate to other people’s feelings.</h4>
+    <h4>You go to the musuem everytime there is a new exibit.</h4>
     <select class="chosen-select" id="q6">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -106,7 +97,7 @@
 
 
     <h3><strong>Question 7</strong></h3>
-    <h4>In a discussion, truth should be more important than people’s sensitivities.</h4>
+    <h4>You enjoy going to galleries.</h4>
     <select class="chosen-select" id="q7">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -117,7 +108,7 @@
     </select>
 
     <h3><strong>Question 8</strong></h3>
-    <h4>You rarely get carried away by fantasies and ideas.</h4>
+    <h4>You read the art section of the NYT religiously.</h4>
     <select class="chosen-select" id="q8">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -128,7 +119,7 @@
     </select>
 
     <h3><strong>Question 9</strong></h3>
-    <h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>
+    <h4>You love foreign films.</h4>
     <select class="chosen-select" id="q9">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -139,7 +130,7 @@
     </select>
 
     <h3><strong>Question 10</strong></h3>
-    <h4>You feel more energetic after spending time with a group of people.</h4>
+    <h4>You enjoy lovely walks in the forest or by a river.</h4>
     <select class="chosen-select" id="q10">
       <option value=""></option>
       <option value="1">1 (Strongly Disagree)</option>
@@ -187,15 +178,16 @@
     </div>
   </div>
 
-  <script type="text/javascript">
 
+<!-- script starts here... To do: Place in diffrent file-->
+  <script type="text/javascript">
   $("#submit").on("click", function(event) {
     event.preventDefault();
      
       var currentSCore = [];
       var finalScores = [];
 
-    // Here we grab the form elements
+    // grab elements from form
     var newFriend = {
       name: $("#name").val().trim(),
       photo: $("#photo").val().trim(),
@@ -205,11 +197,11 @@
     for(var i = 1; i<11; i++){
       var q = "#q" + i;
       var value = $(q).val().trim();
-      newFriend.scores.push(value); //original friends array
-      currentSCore.push(value);
+      newFriend.scores.push(value); //push user element in original friends array
+      currentSCore.push(value); //push user element in currentSCOre array
     }
    
-    
+    //grab information from the friends array using Ajax and comapare scores
     $.ajax({ url: "api/data/friends", method: "GET" })
       .then(function(friends) {
        
@@ -224,10 +216,10 @@
        
        //find min in array
        var min = Math.min.apply(null, finalScores);
+
+       //find position of min
        var minPos = finalScores.indexOf(min)
        
-       console.log(friends[minPos].photo, friends[minPos].name);
-
       //display match name
       $('#match-name').html(friends[minPos].name);
 
@@ -247,7 +239,7 @@
     $.post("/api/friends", newFriend,
       function(data) {
 
-        // Clear the form after submit
+        // clear the form after submit
         $("#name").val("");
         $("#photo").val("");
         $("#q1").val("");
