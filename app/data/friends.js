@@ -4,7 +4,7 @@
 var friendArray = [
     {
         "name":"John",
-        "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo":"https://en.wikipedia.org/wiki/John_Lennon#/media/File:John_Lennon_rehearses_Give_Peace_A_Chance_cropped.jpg",
         "scores":[
             4,
             4,
@@ -20,7 +20,7 @@ var friendArray = [
       },
       {
         "name":"Paul",
-        "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo":"https://en.wikipedia.org/wiki/Paul_McCartney#/media/File:Paul_McCartney_-_Out_There_Concert_-_140420-5941-jikatu_(13950091384).jpg",
         "scores":[
             1,
             1,
@@ -36,7 +36,7 @@ var friendArray = [
       },
       {
         "name":"Ringo",
-        "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo":"https://en.wikipedia.org/wiki/Ringo_Starr#/media/File:Ringo_Starr_and_all_his_band_(8470866906).jpg",
         "scores":[
             2,
             2,
@@ -52,7 +52,7 @@ var friendArray = [
       },
       {
         "name":"George",
-        "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo":"https://en.wikipedia.org/wiki/George_Harrison#/media/File:George_Harrison_1974_edited.jpg",
         "scores":[
             4,
             3,
