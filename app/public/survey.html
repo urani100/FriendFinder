@@ -192,7 +192,8 @@
   $("#submit").on("click", function(event) {
     event.preventDefault();
      
-      var currentCore = [];
+      var currentSCore = [];
+      var finalScores = [];
 
     // Here we grab the form elements
     var newFriend = {
@@ -204,21 +205,29 @@
     for(var i = 1; i<11; i++){
       var q = "#q" + i;
       var value = $(q).val().trim();
-      // newFriend.scores.push(value);
-      currentCore.push(value);
+      newFriend.scores.push(value); //original friends array
+      currentSCore.push(value);
     }
    
     
     $.ajax({ url: "api/data/friends", method: "GET" })
       .then(function(friends) {
-
-        console.log("------------------------------------");
-
-        for(var i= 0; i <friends.length; i++){
-          console.log(friends[0].scores[i], i);
+       
+        for(var i= 0; i <4; i++){
+          var current = [];
+           for(var j=0; j<10; j++){
+            current.push(friends[i].scores[j]- parseInt(currentSCore[j]));
+          } 
+          var sum = current.reduce(function(current, b) { return current + b; }, 0);
+          finalScores.push(sum);
         }
+       
+       //find min in array
+       var min = Math.min.apply(null, finalScores);
+       var minPos = finalScores.indexOf(min)
+       console.log(finalScores, min, minPos);
+       console.log(friends[minPos]);
 
-        // console.log(friends[0].scores);
       });
 
     
