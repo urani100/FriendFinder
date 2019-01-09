@@ -52,7 +52,7 @@ var friendArray = [
       },
       {
         "name":"George",
-        "photo":"../assets/images/george.png",
+        "photo":"assets/images/george.png",
         "scores":[
             1,
             1,
