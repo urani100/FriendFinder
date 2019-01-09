@@ -147,6 +147,7 @@
     <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
      Submit</button>
 
+
     <hr>
     <footer class="footer">
       <div class="container">
@@ -183,34 +184,53 @@
   <script type="text/javascript">
   $("#submit").on("click", function(event) {
     event.preventDefault();
-     
-      var currentSCore = [];
-      var finalScores = [];
 
-    // grab elements from form
-    var newFriend = {
-      name: $("#name").val().trim(),
-      photo: $("#photo").val().trim(),
-      scores: []
-    };
-
-    for(var i = 1; i<11; i++){
-      var q = "#q" + i;
-      var value = $(q).val().trim();
-      newFriend.scores.push(value); //push user element in original friends array
-      currentSCore.push(value); //push user element in currentSCOre array
-    }
+    //validate form function
+    function validateForm() {
+        var isValid = true;
+        $(".form-control").each(function() {
+          if ($(this).val() === "") {
+            isValid = false;
+          }
+        });
+        $(".form-control form-control-chosen").each(function() {
+          if ($(this).val() === "") {
+            isValid = false;
+          }
+        });
+        return isValid;
+      }
+    
    
+   if (validateForm()) {
+     //Create a newFriend object 
+      var newFriend = {
+        name: $("#name").val().trim(),
+        photo: $("#photo").val().trim(),
+        scores: []
+      };
+      
+    var currentSCore = [];
+    var finalScores = [];
+
+      for(var i = 1; i<11; i++){
+        var q = "#q" + i;
+        var value = $(q).val().trim();
+        newFriend.scores.push(value); //push user element in original friends array
+        currentSCore.push(value); //push user element in currentSCOre array
+      }
+
     //grab information from the friends array using Ajax and comapare scores
     $.ajax({ url: "api/data/friends", method: "GET" })
       .then(function(friends) {
-       
+      
         for(var i= 0; i <4; i++){
           var current = [];
            for(var j=0; j<10; j++){
             current.push(friends[i].scores[j]- parseInt(currentSCore[j]));
           } 
           var sum = current.reduce(function(current, b) { return current + b; }, 0);
+          sum = Math.abs(sum);
           finalScores.push(sum);
         }
        
@@ -218,7 +238,7 @@
        var min = Math.min.apply(null, finalScores);
 
        //find position of min
-       var minPos = finalScores.indexOf(min)
+       var minPos = finalScores.indexOf(min);
        
       //display match name
       $('#match-name').html(friends[minPos].name);
@@ -234,8 +254,7 @@
       
       });
 
-    
-
+      //posting object to  /api/friends
     $.post("/api/friends", newFriend,
       function(data) {
 
@@ -254,9 +273,11 @@
         $("#q10").val("");
 
       });
+    }else{
+     alert('Form is Incomplete')
+  }
 
   });
-
+  
 </script>
-
 </html>
